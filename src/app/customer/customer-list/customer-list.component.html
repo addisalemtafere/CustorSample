@@ -51,12 +51,16 @@
             <button class="btn btn-info"
                     (click)="editCustomer(customer,i)">
               <i class="fa fa-edit"></i>
+               <!--TODO: adding font Awesome-->
+
             </button>
           </td>
         </tr>
         </tbody>
       </table>
-
-    </div>
+      <div *ngIf="!loading" class="loadme-circleBounce">
+        <div class="loadmePendulum-body"></div>
+        <div class="loadme-scaleout"></div>
+      </div>    </div>
   </div>
 </div>

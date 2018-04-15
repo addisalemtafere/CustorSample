@@ -34,6 +34,8 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
   selectedworeda: WoredaModel[] = [];
   kebele: KebeleModel[] = [];
   selectedkebele: KebeleModel[] = [];
+  loading = false;
+
 
   constructor(private customerService: CustomerService,
               private route: ActivatedRoute) {
@@ -64,17 +66,19 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
 
   onSubmit(forms: NgForm) {
 
-    console.log(this.editMode);
+    this.loading = true;
     if (!this.editMode) {
       this.customerService.create(this.model)
         .subscribe(
           data => {
+            this.loading = false;
+
             alert('successfully added');
           },
           error => {
             alert('error occured' + error);
 
-            // this.loading = false;
+            this.loading = false;
           });
     } else {
       this.customerService.update(this.model)

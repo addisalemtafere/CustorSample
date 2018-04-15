@@ -1,5 +1,5 @@
 <div class="row">
-
+  <!--TODO: adding  validation-->
   <div class="col-md-12">
 
     <form (ngSubmit)="onSubmit(f)" #f="ngForm">
@@ -224,6 +224,10 @@
         </div>
       </div>
     </form>
+    <div *ngIf="loading" class="loadme-circleBounce">
+      <div class="loadme-cube1"></div>
+      <div class="loadme-cube2"></div>
+    </div>
 
   </div>
 </div>

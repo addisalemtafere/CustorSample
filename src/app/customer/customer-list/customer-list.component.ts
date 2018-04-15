@@ -12,6 +12,7 @@ import {Region} from '../Model/Region.model';
 export class CustomerListComponent implements OnInit {
   customer: Customer[] = [];
   region: Region[] = [];
+  loading = true;
 
   constructor(private customerService: CustomerService,
               private router: Router,
@@ -28,13 +29,21 @@ export class CustomerListComponent implements OnInit {
     this.customerService.getAll().subscribe(customers => {
       this.customer = customers;
       // console.log(this.customer);
+      this.loading = false;
     });
   }
 
   deleteCustomer(customerId: number) {
-    this.customerService.delete(customerId).subscribe(() => {
-      this.getAllCustomer();
-    });
+    const response = confirm('Do you want to Delete this Customer ?');
+    if (response === true) {
+      this.customerService.delete(customerId).subscribe(() => {
+        this.getAllCustomer();
+      });
+      return true;
+    } else {
+      return false;
+    }
+
   }
 
   editCustomer(customer: Customer, index: number) {
