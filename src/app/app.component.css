@@ -1,0 +1,13 @@
+legend {
+  display: block;
+  padding-left: 2px;
+  padding-right: 2px;
+  border: 2px solid darkgrey;
+}
+.btn-success{
+  background: #49cc90 !important;
+}
+.btn-info{
+  background: #61affe !important;
+}
+

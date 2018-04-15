@@ -1,0 +1,32 @@
+
+  <div class="row">
+    <div class="col-xs-12 clearfix">
+      <div class="row">
+        <div class="col-xs-12">
+
+          <button id="new" (click)="onNewCustomer()"
+                  type="button"
+                  class="btn btn-success">
+            New
+          </button>
+          <button
+            id="list"
+            (click)="onCustomerList()"
+            type="button"
+                  class="btn btn-info">
+            List
+          </button>
+
+
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    <div class="col-xs-12 clearfix">
+
+      <router-outlet></router-outlet>
+
+    </div>
+  </div>
+

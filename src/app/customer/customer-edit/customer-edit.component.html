@@ -1,0 +1,235 @@
+
+
+
+
+
+<div class="row">
+
+  <div class="col-md-12">
+
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <fieldset>
+        <legend>
+          Basic Info
+        </legend>
+        <div class="row">
+         <div class="col-md-12">
+           <div class="col-sm-3 form-group">
+             <label for="firstName"> First Name <span class="error">*</span></label>
+             <input id="firstName"
+                    name="firstName"
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="model.firstName"
+                    #fname="ngModel"
+                    required>
+
+             <span class="error help-block" *ngIf="!fname.valid && fname.touched">Please enter a valid first name </span>
+           </div>
+           <div class="col-sm-3 form-group">
+             <label for="middleName"> Middle Name <span class="error">*</span></label>
+             <input id="middleName"
+                    name="middleName"
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="model.middleName"
+                    #mName="ngModel"
+                    required>
+             <span class="error help-block"
+                   *ngIf="!mName.valid && mName.touched">Please enter a valid Middle name </span>
+           </div>
+           <div class="col-sm-3 form-group">
+             <label for="lastName"> last Name <span class="error">*</span></label>
+             <input id="lastName"
+                    name="lastName"
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="model.lastName"
+                    #lname="ngModel"
+                    required>
+             <span class="error help-block" *ngIf="!lname.valid && lname.touched">Please enter a valid last name </span>
+           </div>
+           <div class="col-sm-3 form-group">
+             <label for="sex"> Gender <span class="error">*</span></label>
+
+             <select [(ngModel)]="model.sex"
+                     class="form-control"
+                     required
+                     name="sex"
+                     #gender="ngModel"
+                     id="sex">
+               <option value="">Select Gender </option>
+               <option value="female">Female</option>
+               <option value="male">Male</option>
+             </select>
+             <span class="error help-block" *ngIf="!gender.valid && gender.touched">Please select gender </span>
+           </div>
+         </div>
+
+
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>
+          Address
+        </legend>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-sm-3 form-group">
+              <label for="country"> Naionality <span class="error">*</span></label>
+              <select [(ngModel)]="model.country"
+                      class="form-control"
+                      id="country"
+                      required
+                      name="country"
+                      #country="ngModel"
+              >
+                <option *ngFor="let country of countries" value={{country.code}}>
+                  {{country.amdescription}}
+                </option>
+              </select>
+              <span class="error help-block" *ngIf="!country.valid && country.touched">Please select country </span>
+            </div>
+            <div class="col-sm-3 form-group">
+              <label for="country"> Region <span class="error">*</span></label>
+              <select [(ngModel)]="model.region"
+                      class="form-control"
+                      (change)="onSelectRegion($event.target.value)"
+                      id="region"
+                      required
+                      name="region"
+                      #reg="ngModel"
+              >
+
+                <option *ngFor="let row of region" value={{row.code}}>
+                  {{row.description}}
+                </option>
+              </select>
+              <span class="error help-block" *ngIf="!reg.valid && reg.touched">Please select region </span>
+
+            </div>
+            <div class="col-sm-3 form-group">
+              <label for="zone"> Zone <span class="error">*</span></label>
+              <select [(ngModel)]="model.zone"
+                      (change)="onSelectZone($event.target.value)"
+                      class="form-control"
+                      id="zone"
+                      required
+                      name="zone"
+                      #zone="ngModel">
+                <option *ngFor="let zone of selectedzone" value={{zone.code}}>
+                  {{zone.description}}
+                </option>
+              </select>
+              <span class="error help-block" *ngIf="!zone.valid && zone.touched">Please select Zone </span>
+
+
+            </div>
+            <div class="col-sm-3 form-group">
+              <label for="wereda"> Wereda <span class="error">*</span></label>
+              <select [(ngModel)]="model.wereda"
+                      (change)="onSelectWoredas($event.target.value)"
+                      class="form-control"
+                      id="wereda"
+                      required
+                      name="wereda"
+                      #wereda="ngModel">
+                <option *ngFor="let woreda of selectedworeda" value={{woreda.code}}>
+                  {{woreda.description}}
+                </option>
+              </select>
+              <span class="error help-block" *ngIf="!wereda.valid && wereda.touched">Please select wereda </span>
+
+
+            </div>
+          </div>
+         <div class="col-md-12">
+           <div class="col-sm-3 form-group">
+             <label for="kebele"> kebele <span class="error">*</span></label>
+             <select [(ngModel)]="model.kebele"
+                     class="form-control"
+                     id="kebele"
+                     name="kebele"
+                     #keb="ngModel"
+                     required>
+               <option *ngFor="let kebele of selectedkebele" value={{kebele.code}}>
+                 {{kebele.description}}
+               </option>
+             </select>
+             <span class="error help-block" *ngIf="!keb.valid && keb.touched">Please select kebele </span>
+
+          </div>
+           <div class="col-sm-3 form-group">
+             <label for="HouseNo"> House No <span class="error">*</span></label>
+             <input id="HouseNo"
+                    name="HouseNo"
+                    type="text"
+                    required
+                    class="form-control"
+                    [(ngModel)]="model.houseNo"
+                    required
+                    pattern="^[1-9]+[0-9]*$"
+                    #houseNo="ngModel">
+
+             <span class="error help-block" *ngIf="!houseNo.valid && houseNo.touched">Please enter House Number </span>
+
+           </div>
+           <div class="col-sm-3 form-group">
+             <label for="birthDate"> Birth Date <span class="error">*</span></label>
+             <input id="birthDate"
+                    name="birthDate"
+                    type="date"
+                    class="form-control"
+                    [(ngModel)]="model.birthDate"
+                    required
+                    #birtDate="ngModel">
+             <span class="error help-block" *ngIf="!birtDate.valid && birtDate.touched">Please pick Birth Date </span>
+
+           </div>
+           <div class="col-sm-3 form-group">
+             <label for="tel"> Mobile No <span class="error">*</span></label>
+             <input id="tel"
+                    name="mobileNo"
+                    type="number"
+                    class="form-control"
+                    [(ngModel)]="model.mobileNo"
+                    required
+                    #tel="ngModel">
+             <span class="error help-block" *ngIf="!tel.valid && tel.touched">Please enter Mobile Number </span>
+
+           </div>
+         </div>
+          <div class="col-md-12">
+            <div class="col-sm-3 form-group">
+              <label for="Email">Email <span class="error">*</span></label>
+              <input id="Email"
+                     name="Email"
+                     type="email"
+                     class="form-control"
+                     [(ngModel)]="model.email"
+                     required
+                     #email="ngModel">
+              <span class="error help-block" *ngIf="!email.valid && email.touched">Please enter email</span>
+
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+
+      <div  class="row">
+        <div style="padding: 30px" class="col-xs-12">
+          <button [disabled]="!f.valid"
+                  class="btn save btn-success"
+                  type="submit">
+            {{editMode ? 'update' : 'Save'}}
+          </button>
+
+          <button id="clear" (click)="onClear()" class="btn btn-primary" type="button">Clear</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
+
