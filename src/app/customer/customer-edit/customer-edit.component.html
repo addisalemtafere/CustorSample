@@ -8,58 +8,63 @@
           Basic Info
         </legend>
         <div class="row">
-         <div class="col-md-12">
-           <div class="col-sm-3 form-group">
-             <label for="firstName"> First Name <span class="error">*</span></label>
-             <input id="firstName"
-                    name="firstName"
-                    type="text"
-                    class="form-control"
-                    [(ngModel)]="model.firstName"
-                    #fname="ngModel"
-                    required>
-
-             <span class="error help-block" *ngIf="!fname.valid && fname.touched">Please enter a valid first name </span>
-           </div>
-           <div class="col-sm-3 form-group">
-             <label for="middleName"> Middle Name <span class="error">*</span></label>
-             <input id="middleName"
-                    name="middleName"
-                    type="text"
-                    class="form-control"
-                    [(ngModel)]="model.middleName"
-                    #mName="ngModel"
-                    required>
-             <span class="error help-block"
-                   *ngIf="!mName.valid && mName.touched">Please enter a valid Middle name </span>
-           </div>
-           <div class="col-sm-3 form-group">
-             <label for="lastName"> last Name <span class="error">*</span></label>
-             <input id="lastName"
-                    name="lastName"
-                    type="text"
-                    class="form-control"
-                    [(ngModel)]="model.lastName"
-                    #lname="ngModel"
-                    required>
-             <span class="error help-block" *ngIf="!lname.valid && lname.touched">Please enter a valid last name </span>
-           </div>
-           <div class="col-sm-3 form-group">
-             <label for="sex"> Gender <span class="error">*</span></label>
-
-             <select [(ngModel)]="model.sex"
+          <div class="col-md-12">
+            <div class="col-sm-3 form-group">
+              <label for="firstName"> First Name <span class="error">*</span></label>
+              <input id="firstName"
+                     name="firstName"
+                     type="text"
+                     pattern="^([A-z][A-Za-z]*\s*[A-Za-z]*)$"
                      class="form-control"
-                     required
-                     name="sex"
-                     #gender="ngModel"
-                     id="sex">
-               <option value="">Select Gender </option>
-               <option value="female">Female</option>
-               <option value="male">Male</option>
-             </select>
-             <span class="error help-block" *ngIf="!gender.valid && gender.touched">Please select gender </span>
-           </div>
-         </div>
+                     [(ngModel)]="model.firstName"
+                     #fname="ngModel"
+                     required>
+
+              <span class="error help-block"
+                    *ngIf="!fname.valid && fname.touched">Please enter a valid first name </span>
+            </div>
+            <div class="col-sm-3 form-group">
+              <label for="middleName"> Middle Name <span class="error">*</span></label>
+              <input id="middleName"
+                     name="middleName"
+                     type="text"
+                     class="form-control"
+                     pattern="^([A-z][A-Za-z]*\s*[A-Za-z]*)$"
+                     [(ngModel)]="model.middleName"
+                     #mName="ngModel"
+                     required>
+              <span class="error help-block"
+                    *ngIf="!mName.valid && mName.touched">Please enter a valid Middle name </span>
+            </div>
+            <div class="col-sm-3 form-group">
+              <label for="lastName"> last Name <span class="error">*</span></label>
+              <input id="lastName"
+                     name="lastName"
+                     type="text"
+                     class="form-control"
+                     [(ngModel)]="model.lastName"
+                     #lname="ngModel"
+                     pattern="^([A-z][A-Za-z]*\s*[A-Za-z]*)$"
+                     required>
+              <span class="error help-block"
+                    *ngIf="!lname.valid && lname.touched">Please enter a valid last name </span>
+            </div>
+            <div class="col-sm-3 form-group">
+              <label for="sex"> Gender <span class="error">*</span></label>
+
+              <select [(ngModel)]="model.sex"
+                      class="form-control"
+                      required
+                      name="sex"
+                      #gender="ngModel"
+                      id="sex">
+                <option value="">Select Gender</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+              </select>
+              <span class="error help-block" *ngIf="!gender.valid && gender.touched">Please select gender </span>
+            </div>
+          </div>
 
 
         </div>
@@ -138,62 +143,63 @@
 
             </div>
           </div>
-         <div class="col-md-12">
-           <div class="col-sm-3 form-group">
-             <label for="kebele"> kebele <span class="error">*</span></label>
-             <select [(ngModel)]="model.kebele"
+          <div class="col-md-12">
+            <div class="col-sm-3 form-group">
+              <label for="kebele"> kebele <span class="error">*</span></label>
+              <select [(ngModel)]="model.kebele"
+                      class="form-control"
+                      id="kebele"
+                      name="kebele"
+                      #keb="ngModel"
+                      required>
+                <option *ngFor="let kebele of selectedkebele " value={{kebele.code}}>
+                  {{kebele.description}}
+                </option>
+              </select>
+              <span class="error help-block" *ngIf="!keb.valid && keb.touched">Please select kebele </span>
+
+            </div>
+            <div class="col-sm-3 form-group">
+              <label for="HouseNo"> House No <span class="error">*</span></label>
+              <input id="HouseNo"
+                     name="HouseNo"
+                     type="text"
+                     required
                      class="form-control"
-                     id="kebele"
-                     name="kebele"
-                     #keb="ngModel"
-                     required>
-               <option *ngFor="let kebele of selectedkebele" value={{kebele.code}}>
-                 {{kebele.description}}
-               </option>
-             </select>
-             <span class="error help-block" *ngIf="!keb.valid && keb.touched">Please select kebele </span>
+                     [(ngModel)]="model.houseNo"
+                     required
+                     pattern="^[1-9]+[0-9]*$"
+                     #houseNo="ngModel">
 
+              <span class="error help-block" *ngIf="!houseNo.valid && houseNo.touched">Please enter House Number </span>
+
+            </div>
+            <div class="col-sm-3 form-group">
+              <label for="birthDate"> Birth Date <span class="error">*</span></label>
+              <input id="birthDate"
+                     name="birthDate"
+                     type="date"
+                     class="form-control"
+                     [(ngModel)]="model.birthDate"
+                     required
+                     #birtDate="ngModel">
+              <span class="error help-block" *ngIf="!birtDate.valid && birtDate.touched">Please pick Birth Date </span>
+
+            </div>
+            <div class="col-sm-3 form-group">
+              <label for="tel"> Mobile No <span class="error">*</span></label>
+              <input id="tel"
+                     name="mobileNo"
+                     type="number"
+                     class="form-control"
+                     [(ngModel)]="model.mobileNo"
+                     required
+                     pattern="^(\+?\d{1,4}[\s-])?(?!0+\s+,?$)\d{9}\s*,?$"
+                     #tel="ngModel">
+              <span class="error help-block" *ngIf="!tel.valid && tel.touched">Please enter Mobile Number </span>
+
+            </div>
           </div>
-           <div class="col-sm-3 form-group">
-             <label for="HouseNo"> House No <span class="error">*</span></label>
-             <input id="HouseNo"
-                    name="HouseNo"
-                    type="text"
-                    required
-                    class="form-control"
-                    [(ngModel)]="model.houseNo"
-                    required
-                    pattern="^[1-9]+[0-9]*$"
-                    #houseNo="ngModel">
-
-             <span class="error help-block" *ngIf="!houseNo.valid && houseNo.touched">Please enter House Number </span>
-
-           </div>
-           <div class="col-sm-3 form-group">
-             <label for="birthDate"> Birth Date <span class="error">*</span></label>
-             <input id="birthDate"
-                    name="birthDate"
-                    type="date"
-                    class="form-control"
-                    [(ngModel)]="model.birthDate"
-                    required
-                    #birtDate="ngModel">
-             <span class="error help-block" *ngIf="!birtDate.valid && birtDate.touched">Please pick Birth Date </span>
-
-           </div>
-           <div class="col-sm-3 form-group">
-             <label for="tel"> Mobile No <span class="error">*</span></label>
-             <input id="tel"
-                    name="mobileNo"
-                    type="number"
-                    class="form-control"
-                    [(ngModel)]="model.mobileNo"
-                    required
-                    #tel="ngModel">
-             <span class="error help-block" *ngIf="!tel.valid && tel.touched">Please enter Mobile Number </span>
-
-           </div>
-         </div>
           <div class="col-md-12">
             <div class="col-sm-3 form-group">
               <label for="Email">Email <span class="error">*</span></label>
@@ -203,6 +209,7 @@
                      class="form-control"
                      [(ngModel)]="model.email"
                      required
+                     pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                      #email="ngModel">
               <span class="error help-block" *ngIf="!email.valid && email.touched">Please enter email</span>
 
@@ -212,7 +219,7 @@
       </fieldset>
 
 
-      <div  class="row">
+      <div class="row">
         <div style="padding: 30px" class="col-xs-12">
           <button [disabled]="!f.valid"
                   class="btn save btn-success"
@@ -225,8 +232,8 @@
       </div>
     </form>
     <div *ngIf="loading" class="loadme-circleBounce">
-      <div class="loadme-cube1"></div>
-      <div class="loadme-cube2"></div>
+      <div class="loadmePendulum-body"></div>
+      <div class="loadme-scaleout"></div>
     </div>
 
   </div>

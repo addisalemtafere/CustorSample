@@ -9133,7 +9133,7 @@ export class WoredaPipePipe implements PipeTransform, OnInit {
         this.woredas = data;
         for (const wereda of this.woredas) {
           if (wereda.code === code) {
-            console.log(wereda);
+            // console.log(wereda);
             return wereda.description;
           }
         }
@@ -9143,22 +9143,5 @@ export class WoredaPipePipe implements PipeTransform, OnInit {
         console.log('Error');
       });
   }
-  // transform(code: any, args?: any): any {
-  //   // console.log(this.woredas);
-  //
-  //   for (const worda of this.woredas) {
-  //     if (worda.code === code) {
-  //       // console.log(worda);
-  //       return worda.description;
-  //     }
-  //   }
-  //   return null;
-  // }
-
-  // getAllWoreda() {
-  //   this.customerService.getAllWoreda().subscribe(woredas => {
-  //     this.woredas = woredas;
-  //   });
-  // }
 
   }

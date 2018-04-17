@@ -1,6 +1,8 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {Nationality} from '../Model/Country.model';
 import {CustomerService} from '../customer.service';
+import {AddressServiceService} from '../address-service.service';
+import {KebeleModel} from '../Model/Kebele.model';
 
 @Pipe({
   name: 'countryPipe'
@@ -8,6 +10,7 @@ import {CustomerService} from '../customer.service';
 export class CountryPipePipe implements PipeTransform {
 
   country: Nationality[] = [];
+
 
 
   constructor(private customerService: CustomerService) {

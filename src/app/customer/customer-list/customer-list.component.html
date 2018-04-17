@@ -25,7 +25,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let  customer of customer;let i=index;">
+        <tr *ngFor="let  customer of pagedItems;let i=index;">
           <td>{{i}}</td>
           <td>{{customer.firstName | filterPipe:4}}</td>
           <td>{{customer.middleName}}</td>
@@ -50,17 +50,38 @@
             </button>
             <button class="btn btn-info"
                     (click)="editCustomer(customer,i)">
-              <i class="fa fa-edit"></i>
-               <!--TODO: adding font Awesome-->
+              <i class="fa fa-edit"></i>              <!--TODO: adding font Awesome-->
 
             </button>
           </td>
         </tr>
         </tbody>
       </table>
+
+      <!-- pager -->
+
       <div *ngIf="!loading" class="loadme-circleBounce">
         <div class="loadmePendulum-body"></div>
         <div class="loadme-scaleout"></div>
-      </div>    </div>
+      </div>
+    </div>
+    <div class="col-lg-offset-2 col-md-12">
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+          <a (click)="setPage(1)">First</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+          <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+        </li>
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <a (click)="setPage(page)">{{page}}</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a (click)="setPage(pager.currentPage + 1)">Next</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <a (click)="setPage(pager.totalPages)">Last</a>
+        </li>
+      </ul></div>
   </div>
 </div>

@@ -3,6 +3,7 @@ import {CustomerService} from '../customer.service';
 import {Customer} from '../Model/Customer.model.';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Region} from '../Model/Region.model';
+import {PagerServiceService} from '../services/pager-service.service';
 
 @Component({
   selector: 'app-customer-list',
@@ -13,10 +14,16 @@ export class CustomerListComponent implements OnInit {
   customer: Customer[] = [];
   region: Region[] = [];
   loading = true;
+  // pager object
+  pager: any = {};
+
+  // paged items
+  pagedItems: any[];
 
   constructor(private customerService: CustomerService,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private pagerService: PagerServiceService) {
   }
 
   ngOnInit() {
@@ -28,7 +35,7 @@ export class CustomerListComponent implements OnInit {
 
     this.customerService.getAll().subscribe(customers => {
       this.customer = customers;
-      // console.log(this.customer);
+      this.setPage(1);
       this.loading = false;
     });
   }
@@ -54,6 +61,19 @@ export class CustomerListComponent implements OnInit {
     this.router.navigate(['edit'], {relativeTo: this.route});
     // console.log(customer.firstName + '   and index of  ' + index);
   }
+
+  setPage(page: number) {
+    if (page < 1 || page > this.pager.totalPages) {
+      return;
+    }
+
+    // get pager object from service
+    this.pager = this.pagerService.getPager(this.customer.length, page);
+
+    // get current page of items
+    this.pagedItems = this.customer.slice(this.pager.startIndex, this.pager.endIndex + 1);
+  }
+
 
 
 }

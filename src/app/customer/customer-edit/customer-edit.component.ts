@@ -43,8 +43,8 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.getRegion();
     this.getCountry();
+    this.getRegion();
     this.getAllZones();
     this.getAllWoreda();
     this.getAllKebele();
@@ -54,14 +54,16 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
 
         this.editMode = true;
         this.model = customer;
-        console.log(this.model.zone);
-        this.onSelectZone(customer.zone);
+        // console.log(customer.wereda);
+        // this.onSelectZone(customer.zone);
+
 
       });
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+
   }
 
   onSubmit(forms: NgForm) {
@@ -86,14 +88,13 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
           data => {
             alert('successfully updated');
             this.editMode = false;
+            this.loading = false;
+
           },
           error => {
-
-            // this.loading = false;
+            this.loading = false;
           });
     }
-
-
     forms.reset();
 
 
@@ -116,14 +117,18 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
   }
 
   onSelectZone(code: any) {
+    this.selectedworeda = [];
+    this.selectedkebele = [];
     this.selectedworeda = this.woreda.filter((item) => {
       return item.parent === String(code);
     });
   }
 
-  onSelectWoredas(code: number) {
+  onSelectWoredas(code: any) {
+    this.selectedkebele = [];
     this.selectedkebele = this.kebele.filter((item) => {
       return item.parent === String(code);
+
     });
   }
 
@@ -145,8 +150,7 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
   getAllZones() {
     this.customerService.getAllZone().subscribe(zones => {
       this.zone = zones;
-      this.selectedzone = zones;
-      // console.log(this.selectedworeda);
+      this.onSelectRegion(this.model.region);
     });
 
   }
@@ -154,8 +158,7 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
   getAllWoreda() {
     this.customerService.getAllWoreda().subscribe(woredas => {
       this.woreda = woredas;
-      this.selectedworeda = woredas;
-      // console.log(this.woreda);
+      this.onSelectZone(this.model.zone);
     });
   }
 
@@ -163,7 +166,7 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
     this.customerService.getAllKebele()
       .subscribe(kebeles => {
         this.kebele = kebeles;
-        // this.selectedkebele = this.kebele;
+        this.onSelectWoredas(this.model.wereda);
       });
   }
 }

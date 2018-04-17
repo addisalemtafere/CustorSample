@@ -23,6 +23,7 @@ import { ZonePipePipe } from './customer/pipe/zone-pipe.pipe';
 import { WoredaPipePipe } from './customer/pipe/woreda-pipe.pipe';
 import { CountryPipePipe } from './customer/pipe/country-pipe.pipe';
 import {AddressServiceService} from './customer/address-service.service';
+import {PagerServiceService} from './customer/services/pager-service.service';
 
 
 @NgModule({
@@ -48,7 +49,7 @@ import {AddressServiceService} from './customer/address-service.service';
     ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [CustomerService, AddressServiceService],
+  providers: [CustomerService, AddressServiceService, PagerServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

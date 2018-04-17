@@ -6,14 +6,14 @@ import {Region} from './Model/Region.model';
 import {ZoneModel} from './Model/Zone.model';
 import {WoredaModel} from './Model/Woreda.model';
 import {KebeleModel} from './Model/Kebele.model';
-import {Nationality} from "./Model/Country.model";
+import {Nationality} from './Model/Country.model';
 
 @Injectable()
 export class CustomerService {
 
 
   startingEditing = new Subject<Customer>();
-  region = new Subject<Region[]>();
+  kebeles = new Subject<KebeleModel[]>();
   baseUrl = 'http://localhost:56862/api';
 
   constructor(private http: HttpClient) {
