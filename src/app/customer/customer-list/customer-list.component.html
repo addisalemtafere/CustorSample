@@ -4,7 +4,7 @@
 
     <div class="col-xs-12 clearfix">
 
-      <table class="table table-bordered table-striped">
+      <table class="table table-bordered">
         <thead>
         <tr>
           <th>No</th>
@@ -21,12 +21,12 @@
           <th>Mobile No</th>
           <th>Birth Date</th>
           <th>Email</th>
-          <th>Action</th>
+          <th style="width: 100px;">Action</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let  customer of pagedItems;let i=index;">
-          <td>{{i}}</td>
+          <td>{{i+1}}</td>
           <td>{{customer.firstName | filterPipe:4}}</td>
           <td>{{customer.middleName}}</td>
           <!--<td>{{customer.lastName}}</td>-->
@@ -44,15 +44,16 @@
           <td>{{customer.email}}</td>
 
           <td>
+            <button class="btn btn-info"
+                    (click)="editCustomer(customer,i)">
+              <i class="glyphicon glyphicon-pencil"></i>              <!--TODO: adding font Awesome-->
+
+            </button>
             <button class="btn btn-danger"
                     (click)="deleteCustomer(customer.customerId)">
               <i class="fa  fa-trash"></i>
             </button>
-            <button class="btn btn-info"
-                    (click)="editCustomer(customer,i)">
-              <i class="fa fa-edit"></i>              <!--TODO: adding font Awesome-->
 
-            </button>
           </td>
         </tr>
         </tbody>
@@ -84,4 +85,6 @@
         </li>
       </ul></div>
   </div>
+
+
 </div>

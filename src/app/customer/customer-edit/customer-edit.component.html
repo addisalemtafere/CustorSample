@@ -1,7 +1,7 @@
 <div class="row">
-  <!--TODO: adding  validation-->
-  <div class="col-md-12">
 
+  <div class="col-md-12">
+    <bootstrap-alert alertPosition="top-center"></bootstrap-alert>
     <form (ngSubmit)="onSubmit(f)" #f="ngForm">
       <fieldset>
         <legend>
@@ -85,7 +85,7 @@
                       #country="ngModel"
               >
                 <option *ngFor="let country of countries" value={{country.code}}>
-                  {{country.amdescription}}
+                  {{country.description}}
                 </option>
               </select>
               <span class="error help-block" *ngIf="!country.valid && country.touched">Please select country </span>

@@ -1,0 +1,18 @@
+
+
+.table > thead > tr:first-child th {
+
+    font-size: 14px;
+  font-weight: bold;
+
+  background-color: #f9f9f9 !important;
+}
+
+
+.table > tbody > tr > td:first-child {
+  color: #3c8dbc;
+  background-color: #f9f9f9 !important;
+
+}
+
+

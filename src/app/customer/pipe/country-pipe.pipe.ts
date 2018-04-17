@@ -24,7 +24,7 @@ export class CountryPipePipe implements PipeTransform {
           this.country = data;
           for (const country of this.country) {
             if (country.code === code) {
-              return country.amdescription;
+              return country.description;
             }
           }
           return null;

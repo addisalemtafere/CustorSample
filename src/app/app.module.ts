@@ -24,6 +24,7 @@ import { WoredaPipePipe } from './customer/pipe/woreda-pipe.pipe';
 import { CountryPipePipe } from './customer/pipe/country-pipe.pipe';
 import {AddressServiceService} from './customer/address-service.service';
 import {PagerServiceService} from './customer/services/pager-service.service';
+import { BootstrapAlertModule } from 'ngx-bootstrap-alert';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import {PagerServiceService} from './customer/services/pager-service.service';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BootstrapAlertModule
   ],
   providers: [CustomerService, AddressServiceService, PagerServiceService],
   bootstrap: [AppComponent]

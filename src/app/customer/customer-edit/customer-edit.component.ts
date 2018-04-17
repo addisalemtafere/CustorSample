@@ -10,6 +10,8 @@ import {ZoneModel} from '../Model/Zone.model';
 import {WoredaModel} from '../Model/Woreda.model';
 import {KebeleModel} from '../Model/Kebele.model';
 import {Nationality} from '../Model/Country.model';
+import {BootstrapAlertService, BootstrapAlert} from 'ngx-bootstrap-alert';
+
 
 @Component({
   selector: 'app-customer-edit',
@@ -38,7 +40,8 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
 
 
   constructor(private customerService: CustomerService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private bootstrapAlertService: BootstrapAlertService) {
   }
 
   ngOnInit() {
@@ -54,8 +57,6 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
 
         this.editMode = true;
         this.model = customer;
-        // console.log(customer.wereda);
-        // this.onSelectZone(customer.zone);
 
 
       });
@@ -63,7 +64,6 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-
   }
 
   onSubmit(forms: NgForm) {
@@ -74,11 +74,12 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
         .subscribe(
           data => {
             this.loading = false;
+            this.bootstrapAlertService.alert(new BootstrapAlert('Successfuly Added!', 'alert-success'));
 
-            alert('successfully added');
+
           },
           error => {
-            alert('error occured' + error);
+            this.bootstrapAlertService.alert(new BootstrapAlert('Error occuredd', 'alert-danger'));
 
             this.loading = false;
           });
@@ -86,13 +87,16 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
       this.customerService.update(this.model)
         .subscribe(
           data => {
-            alert('successfully updated');
+            this.bootstrapAlertService.alert(new BootstrapAlert('successfully updated!', 'alert-success'));
+
             this.editMode = false;
             this.loading = false;
 
           },
           error => {
             this.loading = false;
+            this.bootstrapAlertService.alert(new BootstrapAlert('Error occured not Updated!', 'alert-danger'));
+
           });
     }
     forms.reset();
@@ -150,7 +154,8 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
   getAllZones() {
     this.customerService.getAllZone().subscribe(zones => {
       this.zone = zones;
-      this.onSelectRegion(this.model.region);
+      this.selectedzone = zones;
+      // this.onSelectRegion(this.model.region);
     });
 
   }
