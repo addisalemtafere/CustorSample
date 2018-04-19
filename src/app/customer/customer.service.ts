@@ -14,7 +14,7 @@ export class CustomerService {
 
   startingEditing = new Subject<Customer>();
   kebeles = new Subject<KebeleModel[]>();
-  baseUrl = 'api';
+  baseUrl = 'http://localhost:56862/api';
 
   constructor(private http: HttpClient) {
   }
