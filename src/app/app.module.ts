@@ -25,6 +25,12 @@ import { CountryPipePipe } from './customer/pipe/country-pipe.pipe';
 import {AddressServiceService} from './customer/address-service.service';
 import {PagerServiceService} from './customer/services/pager-service.service';
 import { BootstrapAlertModule } from 'ngx-bootstrap-alert';
+import { CustomerMaterialComponent } from './material-ui/customer-material/customer-material.component';
+import { CustomerListMaterialComponent } from './material-ui/customer-material/customer-list-material/customer-list-material.component';
+import { CustomerEditMaterialComponent } from './material-ui/customer-material/customer-edit-material/customer-edit-material.component';
+import {MatNativeDateModule} from '@angular/material';
+import {FlexLayoutModule} from '@angular/flex-layout';
+
 
 
 @NgModule({
@@ -40,7 +46,10 @@ import { BootstrapAlertModule } from 'ngx-bootstrap-alert';
     FilterPipePipe,
     ZonePipePipe,
     WoredaPipePipe,
-    CountryPipePipe
+    CountryPipePipe,
+    CustomerMaterialComponent,
+    CustomerListMaterialComponent,
+    CustomerEditMaterialComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +58,9 @@ import { BootstrapAlertModule } from 'ngx-bootstrap-alert';
     HttpClientModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    BootstrapAlertModule
+    BootstrapAlertModule,
+    MatNativeDateModule,
+    FlexLayoutModule
   ],
   providers: [CustomerService, AddressServiceService, PagerServiceService],
   bootstrap: [AppComponent]

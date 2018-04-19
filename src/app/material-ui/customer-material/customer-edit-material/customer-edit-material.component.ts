@@ -1,24 +1,22 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {CustomerService} from '../customer.service';
 import {NgForm} from '@angular/forms';
-import {Customer} from '../Model/Customer.model.';
-
-import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
-import {Region} from '../Model/Region.model';
-import {ZoneModel} from '../Model/Zone.model';
-import {WoredaModel} from '../Model/Woreda.model';
-import {KebeleModel} from '../Model/Kebele.model';
-import {Nationality} from '../Model/Country.model';
+import {Nationality} from '../../../customer/Model/Country.model';
+import {Region} from '../../../customer/Model/Region.model';
+import {ZoneModel} from '../../../customer/Model/Zone.model';
+import {WoredaModel} from '../../../customer/Model/Woreda.model';
+import {KebeleModel} from '../../../customer/Model/Kebele.model';
+import {CustomerService} from '../../../customer/customer.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Customer} from '../../../customer/Model/Customer.model.';
 import {BootstrapAlertService, BootstrapAlert} from 'ngx-bootstrap-alert';
 
-
 @Component({
-  selector: 'app-customer-edit',
-  templateUrl: './customer-edit.component.html',
-  styleUrls: ['./customer-edit.component.css']
+  selector: 'app-customer-edit-material',
+  templateUrl: './customer-edit-material.component.html',
+  styleUrls: ['./customer-edit-material.component.css']
 })
-export class CustomerEditComponent implements OnInit, OnDestroy {
+export class CustomerEditMaterialComponent implements OnInit, OnDestroy {
 
   @ViewChild('f') slForm: NgForm;
   subscription: Subscription;
@@ -41,6 +39,7 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
 
   constructor(private customerService: CustomerService,
               private route: ActivatedRoute,
+              private router: Router,
               private bootstrapAlertService: BootstrapAlertService) {
   }
 
@@ -92,6 +91,7 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
 
             this.editMode = false;
             this.loading = false;
+            // this.router.navigate([''], {relativeTo: this.route});
 
           },
           error => {
@@ -112,7 +112,8 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
   }
 
 
-  onSelectRegion(code: number) {
+  onSelectRegion(code: any) {
+    console.log(code);
     this.selectedzone = [];
     this.selectedworeda = [];
     this.selectedkebele = [];
@@ -122,6 +123,7 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
   }
 
   onSelectZone(code: any) {
+
     this.selectedworeda = [];
     this.selectedkebele = [];
     this.selectedworeda = this.woreda.filter((item) => {
@@ -176,4 +178,6 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
         this.loading = false;
       });
   }
+
+
 }

@@ -1,0 +1,305 @@
+<div class="spinner-container" *ngIf="loading ">
+  <mat-progress-bar mode="query"></mat-progress-bar>
+</div>
+<mat-card>
+  <bootstrap-alert alertPosition="top-center"></bootstrap-alert>
+
+  <form (ngSubmmit)="onSubmit(f)" #f="ngForm">
+
+    <span>Basic Info</span>
+
+
+    <mat-divider></mat-divider>
+    <div fxLayout="row" fxLayoutAlign="start center" class="content">
+      <div class="blocks" fxFlex>
+        <mat-form-field >
+          <input
+            matInput
+            id="firstName"
+            name="firstName"
+            type="text"
+            pattern="^([A-z][A-Za-z]*\s*[A-Za-z]*)$"
+            [(ngModel)]="model.firstName"
+            #fname="ngModel"
+            placeholder="First Name"
+            required>
+          <mat-error *ngIf="!fname.valid && fname.touched">
+            Please enter a valid first name
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+      <div class="blocks" fxFlex>
+        <mat-form-field>
+          <input
+            matInput
+            id="middleName"
+            name="middleName"
+            type="text"
+            pattern="^([A-z][A-Za-z]*\s*[A-Za-z]*)$"
+            [(ngModel)]="model.middleName"
+            #mName="ngModel"
+            placeholder="Middle Name"
+            required>
+          <mat-error *ngIf="!mName.valid && mName.touched">
+            Please Enter a valid middle Name
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="blocks" fxFlex>
+        <mat-form-field>
+          <input
+            matInput
+            id="lastName"
+            name="lastName"
+            type="text"
+            [(ngModel)]="model.lastName"
+            #lname="ngModel"
+            pattern="^([A-z][A-Za-z]*\s*[A-Za-z]*)$"
+            placeholder="last Name"
+            required>
+          <mat-error *ngIf="!lname.valid && lname.touched">
+            Please Enter a valid last Name
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="blocks" fxFlex>
+
+        <mat-form-field>
+          <mat-select [(ngModel)]="model.sex"
+                      required
+                      name="sex"
+                      #gender="ngModel"
+                      placeholder="Gender"
+                      id="sex">
+
+            <mat-option value="female">Female</mat-option>
+            <mat-option value="male">Male</mat-option>
+          </mat-select>
+          <mat-error *ngIf="!gender.valid && gender.touched">
+            Please select gender
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <span></span>
+    <mat-label>Address Info</mat-label>
+    <mat-divider ></mat-divider>
+    <div fxLayout="row" fxLayoutAlign="start center" class="content">
+      <div class="blocks" fxFlex>
+        <mat-form-field>
+          <mat-select
+            [(ngModel)]="model.country"
+            id="country"
+            placeholder="Country"
+            required
+            name="country"
+            #country="ngModel"
+          >
+            <mat-option *ngFor="let country of countries" value={{country.code}}>
+              {{country.description}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="!country.valid && country.touched">
+            Please select Country
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="blocks" fxFlex>
+        <mat-form-field>
+          <mat-select
+            [(ngModel)]="model.region"
+            (change)="onSelectRegion($event.value)"
+            id="region"
+            required
+            name="region"
+            placeholder="Region"
+            #reg="ngModel"
+          >
+
+
+            <mat-option *ngFor="let row of region"
+                        [value]="row.code"
+            >
+              {{row.description}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="!reg.valid && reg.touched">
+            Please select Region
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="blocks" fxFlex>
+        <mat-form-field>
+          <mat-select
+            [(ngModel)]="model.zone"
+            (change)="onSelectZone($event.value)"
+            id="zone"
+            required
+            name="zone"
+            placeholder="zone"
+            #zone="ngModel">
+            <mat-option *ngFor="let zone of selectedzone"
+                        [value]="zone.code">
+              {{zone.description}}
+            </mat-option>
+          </mat-select>
+
+          <mat-error *ngIf="!zone.valid && zone.touched">
+            Please select zone
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="blocks" fxFlex>
+
+        <mat-form-field>
+          <mat-select
+            [(ngModel)]="model.wereda"
+            (change)="onSelectWoredas($event.value)"
+            placeholder="Wereda"
+            id="wereda"
+            required
+            name="wereda"
+            #wereda="ngModel">
+            <mat-option *ngFor="let woreda of selectedworeda" value={{woreda.code}}>
+              {{woreda.description}}
+            </mat-option>
+          </mat-select>
+
+          <mat-error *ngIf="!wereda.valid && wereda.touched">
+            Please select wereda
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" class="content">
+      <div class="blocks" fxFlex>
+        <mat-form-field>
+
+          <mat-select
+            [(ngModel)]="model.kebele"
+            placeholder="Kebele"
+            id="kebele"
+            name="kebele"
+            #keb="ngModel"
+            required>
+            <mat-option *ngFor="let kebele of selectedkebele " value={{kebele.code}}>
+              {{kebele.description}}
+            </mat-option>
+          </mat-select>
+
+          <mat-error *ngIf="!keb.valid && keb.touched">
+            Please select Kebele
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="blocks" fxFlex>
+        <mat-form-field>
+          <input
+            matInput
+            id="HouseNo"
+            name="HouseNo"
+            type="text"
+            required
+            placeholder="House Number"
+            [(ngModel)]="model.houseNo"
+            required
+            pattern="^[1-9]+[0-9]*$"
+            #houseNo="ngModel">
+
+          <mat-error *ngIf="!houseNo.valid && houseNo.touched">
+            Please select House Number
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+
+      <div class="blocks" fxFlex>
+        <mat-form-field>
+          <input
+            matInput
+            id="birthDate"
+            name="birthDate"
+            type="text"
+            placeholder="Birth Date"
+            [(ngModel)]="model.birthDate"
+            required
+            [matDatepicker]="picker"
+            #birtDate="ngModel"
+          >
+
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+
+          <mat-error *ngIf="!birtDate.valid && birtDate.touched">
+            Please select Birth Date
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="blocks" fxFlex>
+        <mat-form-field>
+          <input
+            matInput
+            id="tel"
+            name="mobileNo"
+            type="number"
+            placeholder="Mobile Number"
+            [(ngModel)]="model.mobileNo"
+            required
+            pattern="^(\+?\d{1,4}[\s-])?(?!0+\s+,?$)\d{9}\s*,?$"
+            #tel="ngModel">
+          <mat-error *ngIf="!tel.valid && tel.touched">
+            Please select Mobile Number
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" class="content">
+      <div class="blocks" fxFlex>
+        <div class="blocks" fxFlex>
+          <mat-form-field>
+            <input
+              matInput
+              id="Email"
+              name="Email"
+              type="email"
+              placeholder="Email"
+              [(ngModel)]="model.email"
+              pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+              #email="ngModel">
+            <mat-error *ngIf="!email.valid && email.touched">
+              Please select email
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+
+  </form>
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!f.valid"
+      class=""
+      (click)="onSubmit(f)"
+      type="submit">
+      {{editMode ? 'update' : 'Save'}}
+    </button>
+
+    <button
+      mat-raised-button
+      color="primary"
+      id="clear"
+      (click)="onClear()"
+      color="primary"
+      type="button">Clear
+    </button>
+
+  </mat-card-actions>
+</mat-card>
+
+
+

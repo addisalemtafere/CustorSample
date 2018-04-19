@@ -1,0 +1,97 @@
+<div class="example-container mat-elevation-z8">
+
+  <div class="spinner-container" *ngIf="loading ">
+    <mat-progress-bar mode="query"></mat-progress-bar>
+  </div>
+  <mat-table #table [dataSource]="dataSource">
+
+
+    <ng-container matColumnDef="fname">
+      <mat-header-cell *matHeaderCellDef> First Name</mat-header-cell>
+      <mat-cell *matCellDef="let customer"> {{customer.firstName | filterPipe:5}}</mat-cell>
+
+    </ng-container>
+
+
+    <ng-container matColumnDef="mname">
+      <mat-header-cell *matHeaderCellDef> Last name</mat-header-cell>
+      <mat-cell *matCellDef="let customer"> {{customer.lastName}}</mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="lname">
+      <mat-header-cell *matHeaderCellDef> Middle name</mat-header-cell>
+      <mat-cell *matCellDef="let customer"> {{customer.middleName}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="gender">
+      <mat-header-cell *matHeaderCellDef>Gender</mat-header-cell>
+      <mat-cell *matCellDef="let customer">{{customer.sex}}</mat-cell>
+    </ng-container>
+    <!-- Country Column -->
+    <ng-container matColumnDef="country">
+      <mat-header-cell *matHeaderCellDef> Country</mat-header-cell>
+      <mat-cell *matCellDef="let customer"> {{customer.country | countryPipe | async }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="region">
+      <mat-header-cell *matHeaderCellDef>Region</mat-header-cell>
+      <mat-cell *matCellDef="let customer">{{customer.region | regionPipe}}</mat-cell>
+    </ng-container>
+    <!--<ng-container matColumnDef="zone">-->
+    <!--<mat-header-cell *matHeaderCellDef>Zone</mat-header-cell>-->
+    <!--<mat-cell *matCellDef="let customer">{{customer.zone | zonePipe | async}}</mat-cell>-->
+    <!--</ng-container>-->
+    <ng-container matColumnDef="wereda">
+      <mat-header-cell *matHeaderCellDef>Wereda</mat-header-cell>
+      <mat-cell *matCellDef="let customer">{{customer.wereda | woredaPipe | filterPipe:10  | async }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="houseno">
+      <mat-header-cell *matHeaderCellDef>House Number</mat-header-cell>
+      <mat-cell *matCellDef="let customer">{{customer.houseNo}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="mobileno">
+      <mat-header-cell *matHeaderCellDef>Mobile Number</mat-header-cell>
+      <mat-cell *matCellDef="let customer">{{customer.mobileNo}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="birthdate">
+      <mat-header-cell *matHeaderCellDef>Birth Date</mat-header-cell>
+      <mat-cell *matCellDef="let customer">{{customer.birthDate}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+      <mat-cell *matCellDef="let customer">
+        <div class="button-row">
+
+
+          <button
+            (click)="editCustomer(customer)"
+            mat-mini-fab color="primary">
+            <mat-icon>mode_edit</mat-icon>
+
+          </button>
+          <button mat-mini-fab color="warn"
+                  (click)="deleteCustomer(customer.customerId)"
+          >
+            <mat-icon>delete</mat-icon>
+
+          </button>
+
+        </div>
+      </mat-cell>
+    </ng-container>
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"
+             (click)="onRowClicked(row)">
+
+
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator
+
+    #paginator
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
+</div>
